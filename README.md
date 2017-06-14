@@ -1,6 +1,8 @@
 # Readings in Databases
 
-A list of papers essential to understanding databases and building new data systems. The list is curated and maintained by Reynold Xin ([@rxin](http://twitter.com/rxin))
+A list of papers essential to understanding databases and building new data systems. The list is curated and maintained by Reynold Xin ([@rxin](http://twitter.com/rxin)). If you think a paper should be part of this list, please submit a pull request. It might take a while since I need to go over the paper.
+
+If you are reading this and taking the effort to understand these papers, we would love to talk to you about opportunities at [Databricks](https://databricks.com/company/careers).
 
 ## <a name='TOC'>Table of Contents</a>
 
@@ -16,16 +18,16 @@ A list of papers essential to understanding databases and building new data syst
 
 
 ## <a name='basic-and-algo'> Basics and Algorithms
-* [The Five-Minute Rule Ten Years Later, and Other Computer Storage Rules of Thumb](http://www.cs.berkeley.edu/~rxin/db-papers/5-min-rule.pdf) (1997): This paper (and the original one proposed 10 years earlier) illustrates a quantitative formula to calculate whether a data page should be cached in memory or not. It is a delight to read Jim Gray approach to an array of related problems, e.g. how big should a page size be.
+* [The Five-Minute Rule Ten Years Later, and Other Computer Storage Rules of Thumb](http://research.microsoft.com/en-us/um/people/gray/5_min_rule_sigmod.pdf) (1997): This paper (and the original one proposed 10 years earlier) illustrates a quantitative formula to calculate whether a data page should be cached in memory or not. It is a delight to read Jim Gray approach to an array of related problems, e.g. how big should a page size be.
 
-* [AlphaSort: A Cache-Sensitive Parallel External Sort](http://www.cs.berkeley.edu/~rxin/db-papers/alphasort.pdf) (1995): cache-friendly sorting
+* [AlphaSort: A Cache-Sensitive Parallel External Sort](http://research.microsoft.com/en-us/um/people/gray/papers/AlphaSortSigmod.pdf) (1995): Sorting is one of the most essential algorithms in databases, as it is used to do joins, aggregations, and sorts. In algorithms 101 class, CS students are asked to reason about big O complexity and ignore the constant factor. In practice, however, the change in constant from L2 cache can be as big as two or three orders of magnitude. This is a good paper to learn about all the tricks fast sorting implementations use.
 
 * [Patience is a Virtue: Revisiting Merge and Sort on Modern Processors](http://research.microsoft.com/pubs/209622/patsort-sigmod14.pdf) (2014): Sorting revisited. Actually also a good survey on sorting algorithms used in practice and their trade-offs.
 
 
 ## <a name='essentials'> Essentials of Relational Databases
 
-* [Anatomy of a Database System](https://mitpress.mit.edu/sites/default/files/titles/content/9780262693141_sch_0002.pdf) (200x): Joe Hellerstein's great overview of relational database systems. This essay walks readers through all components essential to relational database systems.
+* [Architecture of a Database System](http://db.cs.berkeley.edu/papers/fntdb07-architecture.pdf) (2007): Joe Hellerstein's great overview of relational database systems. This essay walks readers through all components essential to relational database systems.
 
 * [A Relational Model of Data for Large Shared Data Banks](http://www.cs.berkeley.edu/~rxin/db-papers/Relational-Model-Codd.pdf) (1970): Codd's argument for data independence (from 1970), a fundamental concept in relational databases. Despite the current NoSQL trend, I believe ideas from this paper are becoming increasingly important in massively parallel data systems.
 
@@ -73,16 +75,14 @@ Columnar storage and column-oriented query engine are critical to analytical wor
 
 * [Spanner](http://static.googleusercontent.com/media/research.google.com/en//archive/spanner-osdi2012.pdf) (2012): Spanner is "a scalable, multi-version, globally distributed, and synchronously replicated database". The linchpin that allows all this functionality is the TrueTime API which lets Spanner order events between nodes without having them communicate. [There is some speculation that the TrueTime API is very similar to a vector clock but each node has to store less data](http://www.cse.buffalo.edu/~demirbas/publications/augmentedTime.pdf). Sadly, a paper on TrueTime is promised, but hasn't yet been released.
 
-* [Dryad: Distributed Data-Parallel Programs from Sequential Building Blocks](http://cs.brown.edu/~debrabant/cis570-website/papers/dryad.pdf) (2007): Dryad is a programming model developed at Microsoft that enables large scale dataflow programming. "The fundamental difference between the \[MapReduce and Dryad\] is that a Dryad application may specify an arbitrary communication DAG rather than requiring a sequence of map/distribute/sort/reduce operations". 
-
 
 ## <a name='consensus'> Consensus and Consistency
 
-* [Paxos Made Simple](http://www.cs.berkeley.edu/~rxin/db-papers/Paxos.pdf) (2001): Paxos is a fault-tolerant distributed consensus protocol. It forms the basis of a wide variety of distributed systems. The idea is simple, but notoriously difficult to understand (perhaps due to the way the original Paxos paper was written).
+* [Paxos Made Simple](http://research.microsoft.com/en-us/um/people/lamport/pubs/paxos-simple.pdf) (2001): Paxos is a fault-tolerant distributed consensus protocol. It forms the basis of a wide variety of distributed systems. The idea is simple, but notoriously difficult to understand (perhaps due to the way the original Paxos paper was written).
 
 * [The Raft Consensus Algorithm](https://ramcloud.stanford.edu/wiki/download/attachments/11370504/raft.pdf) (2014) : Raft is a consensus algorithm designed as an alternative to Paxos. It was meant to be more understandable than Paxos by means of separation of logic, but it is also formally proven safe and offers some new features.[1] Raft offers a generic way to distribute a state machine across a cluster of computing systems, ensuring that each node in the cluster agrees upon the same series of state transitions. 
 
-* [CAP Twelve Years Later: How the "Rules" Have Changed](http://www.cs.berkeley.edu/~rxin/db-papers/CAP.pdf) (2012): The CAP theorem, proposed by Eric Brewer, asserts that any net­worked shared-data system can have only two of three desirable properties: Consistency, Availability, and Partition-Tolerance. A number of NoSQL stores reference CAP to justify their decision to sacrifice consistency. This is Eric Brewer's writeup on CAP in retrospective, explaining "'2 of 3' formulation was always misleading because it tended to oversimplify the tensions among properties."
+* [CAP Twelve Years Later: How the "Rules" Have Changed](http://www.computer.org/cms/Computer.org/ComputingNow/homepage/2012/0512/T_CO2_CAP12YearsLater.pdf) (2012): The CAP theorem, proposed by Eric Brewer, asserts that any net­worked shared-data system can have only two of three desirable properties: Consistency, Availability, and Partition-Tolerance. A number of NoSQL stores reference CAP to justify their decision to sacrifice consistency. This is Eric Brewer's writeup on CAP in retrospective, explaining "'2 of 3' formulation was always misleading because it tended to oversimplify the tensions among properties."
 
 
 ## <a name='trends'> Trends (Cloud Computing, Warehouse-scale Computing, New Hardware)
@@ -96,15 +96,16 @@ Columnar storage and column-oriented query engine are critical to analytical wor
 
 * [Reflections on Trusting Trust](http://www.cs.berkeley.edu/~rxin/db-papers/TrustingTrust-Thompson.pdf) (1984): Ken Thompson's Turing Award acceptance speech in 1984, describing black box backdoor issues and pointing out trust is not absolute.
 
+* [What Goes Around Comes Around](http://people.cs.umass.edu/~yanlei/courses/CS691LL-f06/papers/SH05.pdf): Michael Stonebraker and Joseph M. Hellerstein provide a summary of 35 years of data model proposals, grouped into 9 different eras. The paper discusses the proposals of each era, and show that there are only a few basic data modeling ideas, and most have been around a long time. Later proposals inevitably bear a strong resemblance to certain earlier proposals.
 
 
-## <a name='externel'> External Reading Lists
+## <a name='external'> External Reading Lists
 
 A number of schools have their own reading lists for graduate students in databases.
 
-* Berkeley: http://www.eecs.berkeley.edu/GradAffairs/CS/Prelims/db.html
-* Brown: http://www.cs.brown.edu/courses/cs227/papers.html
-* Stanford: http://infolab.stanford.edu/db_pages/infoqual.html
-* Wisconsin: http://www.cs.wisc.edu/sites/default/files/db.reading.pdf
-* [The reading list](http://www.cs286.net/home/reading-list) for Joseph Hellerstein's graduate course in database systems at Berkeley. It is more comprehensive than this list, but there is substantial overlap.
-
+* Berkeley [PhD prelim exam reading list](http://www.eecs.berkeley.edu/GradAffairs/CS/Prelims/db.html) and [CS286 grad database class reading list](http://www.cs286.net/home/reading-list)
+* [Brown CSCI 2270 Advanced Topics in Database Management](http://www.cs.brown.edu/courses/cs227/papers.html)
+* [Stanford PhD qualifying exam](http://infolab.stanford.edu/db_pages/infoqual.html)
+* MIT: [Database Systems 6.830 year 2014](http://db.csail.mit.edu/6.830/sched.html) and [year 2010](http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-830-database-systems-fall-2010/readings/)
+* [Wisconsin Database Qualifying Exam Reading List (2014)](https://www.cs.wisc.edu/sites/default/files/pictures/Database%20systems%20qual_Summer%202014.pdf)
+* [CMU 15-721 Database Systems Reading List (Spring 2016)](http://15721.courses.cs.cmu.edu/spring2016/schedule.html)
